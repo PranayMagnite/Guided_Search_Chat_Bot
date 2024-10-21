@@ -1,0 +1,26 @@
+<!-- Floating Chat Button -->
+<button class="chat-toggle" (click)="toggleChat()">
+    💬
+  </button>
+  
+  <!-- Chat Widget -->
+  <div *ngIf="isChatOpen" class="chat-widget">
+    <div class="chat-header">
+      <h3>Maui Jim Sunglasses Assistant</h3>
+      <button (click)="toggleChat()">✖</button>
+    </div>
+  
+    <div class="chat-body">
+      <div *ngFor="let msg of messages">
+
+        <p *ngIf="msg.role != 'system'" [ngClass]="msg.role === 'assistant' ? 'bot-msg' : 'user-msg'">
+          {{ msg.content }}</p>
+      </div>
+    </div>
+  
+    <div class="chat-footer">
+      <input [(ngModel)]="userInput" placeholder="Ask me anything..." />
+      <button (click)="sendMessage()">Send</button>
+    </div>
+  </div>
+  
