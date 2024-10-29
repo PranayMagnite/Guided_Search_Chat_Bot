@@ -1,26 +1,36 @@
-<!-- Floating Chat Button -->
-<button class="chat-toggle" (click)="toggleChat()">
-    💬
-  </button>
-  
+<div *ngIf="isValid">
+  <!-- Floating Chat Button -->
+  <button class="chat-toggle" (click)="toggleChat()">💬</button>
+
   <!-- Chat Widget -->
   <div *ngIf="isChatOpen" class="chat-widget">
     <div class="chat-header">
-      <h3>Maui Jim Sunglasses Assistant</h3>
-      <button (click)="toggleChat()">✖</button>
+      <div class="agent-info">
+        <img src="https://i.ibb.co/9NbJMcv/mj-k.webp" alt="Agent Avatar" class="agent-avatar" />
+        <h4>Maui Jim Assistant</h4>
+    
+      </div>
+      <button class="close-btn" (click)="toggleChat()">✖</button>
     </div>
-  
-    <div class="chat-body">
-      <div *ngFor="let msg of messages">
 
-        <p *ngIf="msg.role != 'system'" [ngClass]="msg.role === 'assistant' ? 'bot-msg' : 'user-msg'">
-          {{ msg.content }}</p>
+    <div #chatBody class="chat-body">
+	   <div [ngClass]="'bot-msg'">
+        <markdown [data]="wcMessage[0].content"></markdown>
+     </div>
+      <div *ngFor="let msg of messages">
+        <div *ngIf="msg.role !== 'system'" [ngClass]="msg.role === 'assistant' ? 'bot-msg' : 'user-msg'">
+          <markdown [data]="msg.content"></markdown>
+        </div>
       </div>
     </div>
-  
+
     <div class="chat-footer">
-      <input [(ngModel)]="userInput" placeholder="Ask me anything..." />
-      <button (click)="sendMessage()">Send</button>
+      <input
+        [(ngModel)]="userInput"
+        (keydown.enter)="sendMessage()"
+        placeholder="Type your message..."
+      />
+      <button class="send-btn" (click)="sendMessage()">Send</button>
     </div>
   </div>
-  
+</div>
