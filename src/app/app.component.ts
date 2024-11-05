@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'Guided_Search_Chat_Bot test';
+  title = 'Guided_Search_Chat_Bot';
+  @Input() secretKey: string | undefined;
+  @Input() clientId: String | undefined;
+  @Input() productName: String | undefined;
 }

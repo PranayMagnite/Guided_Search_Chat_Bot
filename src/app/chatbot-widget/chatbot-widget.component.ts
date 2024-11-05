@@ -13,7 +13,7 @@ export class ChatbotWidgetComponent  implements OnInit,AfterViewChecked {
   userInput: string = '';
   @Input() secretKey: string | undefined;
   @Input() clientId: String | undefined;
-
+  @Input() productName: String | undefined;
   @ViewChild('chatBody', { static: false }) chatBody!: ElementRef; // Reference to the chat body div 1
 
   isValid = false;
@@ -22,12 +22,15 @@ export class ChatbotWidgetComponent  implements OnInit,AfterViewChecked {
   response ='';
   userMessage: { role: string, content: string }[] = [];
   META_PROMPT = `You are a Maui Jim assistant.Help users find all kind of products based on their needs and provide customer support service. Recommend products with highlighted name & sku,short information.Focus on use case, lens type, frame style, fit, and color. Ask short follow-ups if needed and suggest multiple options when unsure.response must be in markdown format`;
+  PDP_META_PROMPT= ``;
 
   
   constructor(private chatService: ChatbotWidgetService) {}
 
   ngAfterViewChecked(): void {
+    if(this.isChatOpen){
     this.scrollToBottom();
+    }
   }
 
   ngOnInit(): void {
@@ -45,7 +48,12 @@ export class ChatbotWidgetComponent  implements OnInit,AfterViewChecked {
           this.isValid = false;
       }
      }); 
-    this.messages.push({role:'system', content:this.META_PROMPT});   
+     this.chatService.getMetaPrompt(this.clientId).subscribe((res)=>{
+    this.PDP_META_PROMPT=  res.metaData;
+    console.log(this.PDP_META_PROMPT);
+    this.messages.push({role:'system', content:this.PDP_META_PROMPT});   
+
+     })
 
   }
 
@@ -53,12 +61,11 @@ export class ChatbotWidgetComponent  implements OnInit,AfterViewChecked {
   // Toggle chat widget visibility
   toggleChat() {
     this.isChatOpen = !this.isChatOpen;
-    this.ngOnInit();
+    this.ngOnInit();  
   }
 
     // Function to scroll to the bottom of the chat body
     scrollToBottom(): void {
-      console.log(this.chatBody);
       try {
         this.chatBody.nativeElement.scrollTop = this.chatBody.nativeElement.scrollHeight;
       } catch (err) {
@@ -73,7 +80,9 @@ export class ChatbotWidgetComponent  implements OnInit,AfterViewChecked {
       if (userMessage.trim() === '') return; 
        this.userInput = '';  
       this.messages.push({ role: 'user', content: userMessage });
-      this.filterMessages();
+      console.log()
+     this.filterMessages();
+    // console.log(this.userMessage);
       this.chatService.sendMessage(this.userMessage).subscribe((res) => {
         this.response = res.choices[0].message.content;
         this.messages.push({ role: 'assistant', content: this.response });
@@ -84,13 +93,21 @@ export class ChatbotWidgetComponent  implements OnInit,AfterViewChecked {
 
 
       filterMessages (){
-      //  this.userMessage = this.messages.filter(message => message.role != 'assistant');
-      this.userMessage = this.messages;
-        if (this.messages.length > 3 ) {
+      
+        const lastAssistantIndex = this.messages.map((msg, index) => 
+          msg.role === 'assistant' ? index : -1
+        ).filter(index => index !== -1).pop();
+        
+        this.userMessage = this.messages.filter((message, index) => 
+          message.role !== 'assistant' || index === lastAssistantIndex
+        );
+      
+      //  console.log("usermessage",this.userMessage);
+        if (this.messages.length > 5 ) {
           this.chatService.getchatSummary(this.userMessage).subscribe((res)=>{
-            console.log(res);
+     //       console.log(res);
             this.userMessage = res;
-            console.log(this.userMessage);
+            console.log("filterMes_user"+this.userMessage);
           })
 
         }   
