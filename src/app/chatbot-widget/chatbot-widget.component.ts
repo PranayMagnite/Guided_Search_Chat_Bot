@@ -21,7 +21,7 @@ export class ChatbotWidgetComponent  implements OnInit,AfterViewChecked {
   wcMessage: { role: string, content: string }[] = [];
   response ='';
   userMessage: { role: string, content: string }[] = [];
-  META_PROMPT = `You are a Maui Jim assistant.Help users find all kind of products based on their needs and provide customer support service. Recommend products with highlighted name & sku,short information.Focus on use case, lens type, frame style, fit, and color. Ask short follow-ups if needed and suggest multiple options when unsure.response must be in markdown format`;
+  META_PROMPT = `You are a Maui Jim assistant.Help users find all kind of products based on their needs and provide customer support service. Recommend products with highlighted name & sku,short information.Focus on use case, lens type, frame style, fit, and color. Ask short follow-ups if needed and suggest multiple options when unsure.response must be in markdown format ok`;
   PDP_META_PROMPT= ``;
 
   
@@ -34,6 +34,7 @@ export class ChatbotWidgetComponent  implements OnInit,AfterViewChecked {
   }
 
   ngOnInit(): void {
+    console.log("yes");
     this.secretKey="aloha";
     this.clientId="test";
     this.messages = [];
@@ -42,13 +43,13 @@ export class ChatbotWidgetComponent  implements OnInit,AfterViewChecked {
       if( res.key == this.secretKey)
       {
        this.isValid = true;
-       this.chatService.getMetaPrompt(this.clientId).subscribe((res)=>{
+       this.chatService.getMetaPrompt(this.clientId,this.productName).subscribe((res)=>{
        });
       }else{
           this.isValid = false;
       }
      }); 
-     this.chatService.getMetaPrompt(this.clientId).subscribe((res)=>{
+     this.chatService.getMetaPrompt(this.clientId, this.productName).subscribe((res)=>{
     this.PDP_META_PROMPT=  res.metaData;
     console.log(this.PDP_META_PROMPT);
     this.messages.push({role:'system', content:this.PDP_META_PROMPT});   

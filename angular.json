@@ -48,6 +48,7 @@
                   "maximumError": "10kB"
                 }
               ],
+              
               "fileReplacements": [
                 {
                   "replace": "src/app/environments/environment.ts",
@@ -57,9 +58,8 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
+            
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true

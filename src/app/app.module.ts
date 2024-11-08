@@ -21,14 +21,15 @@ import { createCustomElement } from '@angular/elements';
   ],
  
   providers: [],
- bootstrap: [AppComponent]  
+  
+ //bootstrap: [AppComponent]  
 })
 export class AppModule { 
 
   constructor(private injector: Injector) {
       // Create a custom element from the WidgetComponent
-      const widgetElement = createCustomElement(AppComponent, { injector: this.injector });
-      // Define the custom element name
+      const widgetElement = createCustomElement(ChatbotWidgetComponent, { injector });
+      // Define the custom element nameentryComponents
       customElements.define('app-root', widgetElement);
 
   }
