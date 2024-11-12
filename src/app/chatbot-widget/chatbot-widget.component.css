@@ -10,37 +10,40 @@ body {
 /* Floating Chat Button */
 .chat-toggle {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 25px;
+  right: 25px;
   background-color: #4a4a4a;
   color: white;
   border: none;
   border-radius: 50%;
-  width: 56px;
-  height: 56px;
-  font-size: 24px;
+  width: 64px;  /* Increased size */
+  height: 64px; /* Increased size */
+  font-size: 28px; /* Increased font size */
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .chat-toggle:hover {
   transform: scale(1.1);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
 /* Chat Widget */
 .chat-widget {
   position: fixed;
-  bottom: 90px;
-  right: 20px;
-  width: 370px;
+  bottom: 100px;
+  right: 25px;
+  width: 450px;
+  height: 600px;
   background-color: white;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   animation: fadeIn 0.3s ease-in-out;
-  z-index: 1000; 
+  z-index: 1000;
+  display: flex;           /* Added for flex layout */
+  flex-direction: column;  /* Column layout to stack elements */
 }
 
 /* Chat Header */
@@ -50,18 +53,18 @@ body {
   justify-content: space-between;
   background-color: #005fa8;
   color: white;
-  padding: 10px 15px;
+  padding: 15px 20px; /* Increased padding */
 }
 
 .agent-info {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .agent-avatar {
-  width: 32px;
-  height: 32px;
+  width: 40px; /* Increased avatar size */
+  height: 40px;
   border-radius: 50%;
   background-color: white;
 }
@@ -69,12 +72,12 @@ body {
 .chat-header h4 {
   margin: 0;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 18px; /* Increased font size */
 }
 
 .chat-header p {
   margin: 0;
-  font-size: 12px;
+  font-size: 14px; /* Increased font size */
   opacity: 0.8;
 }
 
@@ -82,63 +85,64 @@ body {
   background: none;
   border: none;
   color: white;
-  font-size: 18px;
+  font-size: 20px; /* Increased font size */
   cursor: pointer;
 }
 
 /* Chat Body */
-
 .chat-body {
-  max-height: 300px;
+  flex: 1;                  /* Allows chat body to take up available space */
   overflow-y: auto;
-  padding: 12px;
+  padding: 16px;
   background-color: #f9f9f9;
-  display: flex;                /* Use Flexbox */
-  flex-direction: column;       /* Stack messages vertically */
+  display: flex;
+  flex-direction: column;
 }
 
 /* User and Bot Message Styles */
 .bot-msg, .user-msg {
-  display: inline-block;         /* Ensure inline-block display */
-  max-width: 80%;
-  padding: 12px;
-  margin-bottom: 8px;
+  display: inline-block;
+  max-width: 85%; /* Adjusted width */
+  padding: 14px; /* Increased padding */
+  margin-bottom: 10px;
   border-radius: 12px;
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 16px; /* Increased font size */
+  line-height: 1.6;
 }
 
 /* Bot Message Styles */
 .bot-msg {
   background-color: #e6f4ff;
   color: #005fa8;
-  align-self: flex-start;       /* Align bot message to the left */
-  text-align: left;             /* Align text to the left */
+  align-self: flex-start;
+  text-align: left;
 }
 
 /* User Message Styles */
 .user-msg {
   background-color: #e0e0e0;
   color: #333;
-  align-self: flex-end;         /* Align user message to the right */
-  text-align: right;            /* Align text to the right */
+  align-self: flex-end;
+  float: right;   
 }
-
 
 /* Footer */
 .chat-footer {
   display: flex;
-  padding: 10px;
+  padding: 12px;
   background-color: white;
   border-top: 1px solid #ddd;
+  position: sticky;
+  bottom: 0;
 }
 
 .chat-footer input {
   flex: 1;
   border: 1px solid #ccc;
   border-radius: 24px;
-  padding: 10px 15px;
-  margin-right: 8px;
+  padding: 12px 18px; /* Increased padding */
+  margin-right: 10px;
+  font-size: 16px; /* Increased font size */
   outline: none;
   transition: border-color 0.2s;
 }
@@ -152,7 +156,8 @@ body {
   color: white;
   border: none;
   border-radius: 24px;
-  padding: 10px 20px;
+  padding: 10px 24px; /* Increased padding */
+  font-size: 16px; /* Increased font size */
   cursor: pointer;
   transition: background-color 0.3s;
 }
@@ -174,14 +179,15 @@ body {
 }
 
 /* Responsive Design */
-@media (max-width: 400px) {
+@media (max-width: 480px) {
   .chat-widget {
     width: 95%;
     right: 2.5%;
+    height: 80vh;
   }
 
   .chat-toggle {
-    bottom: 10px;
-    right: 10px;
+    bottom: 15px;
+    right: 15px;
   }
 }

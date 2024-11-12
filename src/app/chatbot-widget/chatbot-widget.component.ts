@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ChatbotWidgetService } from './chatbot-widget.service';
 
 
@@ -7,14 +7,17 @@ import { ChatbotWidgetService } from './chatbot-widget.service';
   templateUrl: './chatbot-widget.component.html',
   styleUrls: ['./chatbot-widget.component.css']
 })
-export class ChatbotWidgetComponent  implements OnInit,AfterViewChecked {
+export class ChatbotWidgetComponent  implements AfterViewChecked,AfterViewInit {
 
   isChatOpen = false;  // To toggle the widget visibility
   userInput: string = '';
   @Input() secretKey: string | undefined;
-  @Input() clientId: String | undefined;
-  @Input() productName: String | undefined;
+  @Input() clientId: string | undefined;
+  @Input() productName: string | undefined;
   @ViewChild('chatBody', { static: false }) chatBody!: ElementRef; // Reference to the chat body div 1
+
+
+  
 
   isValid = false;
   messages: { role: string, content: string }[] = [];
@@ -31,12 +34,14 @@ export class ChatbotWidgetComponent  implements OnInit,AfterViewChecked {
     if(this.isChatOpen){
     this.scrollToBottom();
     }
+
   }
 
-  ngOnInit(): void {
-    console.log("yes");
-    this.secretKey="aloha";
-    this.clientId="test";
+
+  ngAfterViewInit(): void {
+    
+    console.log("yes"+ this.secretKey + this.clientId+this.productName);
+ 
     this.messages = [];
     this.wcMessage.push({ role :'assistant', content: `Hello! Welcome to Maui Jim sunglasses assistant. I'm here to help you find the perfect pair of sunglasses. Let's get started!`}); //WC message should be configurable
     this.chatService.getSecretKey(this.clientId).subscribe((res)=>{
@@ -54,7 +59,7 @@ export class ChatbotWidgetComponent  implements OnInit,AfterViewChecked {
     console.log(this.PDP_META_PROMPT);
     this.messages.push({role:'system', content:this.PDP_META_PROMPT});   
 
-     })
+     });
 
   }
 
@@ -62,7 +67,7 @@ export class ChatbotWidgetComponent  implements OnInit,AfterViewChecked {
   // Toggle chat widget visibility
   toggleChat() {
     this.isChatOpen = !this.isChatOpen;
-    this.ngOnInit();  
+    this.ngAfterViewInit();  
   }
 
     // Function to scroll to the bottom of the chat body

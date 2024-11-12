@@ -25,7 +25,12 @@ export class ChatbotWidgetService {
   }
 
   getMetaPrompt(clientId: String | undefined, productName: String| undefined): Observable<any> {
-    return this.http.post<any>(this.clientMetaPromptUrl,{clientId,productName});
+    const payload = {
+      clientId,
+      productName,
+      // Add more parameters here as needed
+    };
+    return this.http.post<any>(this.clientMetaPromptUrl,payload);
   }
 
   getchatSummary(messages: any[]): Observable<any> {

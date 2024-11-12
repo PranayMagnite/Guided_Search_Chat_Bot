@@ -14,7 +14,7 @@ import { createCustomElement } from '@angular/elements';
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
-    BrowserModule,   // For running the Angular app in a browser
+    BrowserModule,   
     FormsModule,     
     HttpClientModule,
     MarkdownModule.forRoot(),
@@ -24,11 +24,11 @@ import { createCustomElement } from '@angular/elements';
   
  //bootstrap: [AppComponent]  
 })
-export class AppModule { 
+export class AppModule  { 
 
   constructor(private injector: Injector) {
       // Create a custom element from the WidgetComponent
-      const widgetElement = createCustomElement(ChatbotWidgetComponent, { injector });
+      const widgetElement = createCustomElement(AppComponent, { injector });
       // Define the custom element nameentryComponents
       customElements.define('app-root', widgetElement);
 
