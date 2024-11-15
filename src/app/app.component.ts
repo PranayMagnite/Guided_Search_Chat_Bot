@@ -10,6 +10,8 @@ export class AppComponent  {
   @Input() secretKey: string | undefined;
   @Input() clientId: string | undefined;
   @Input() productName: string | undefined;
+  @Input() productDetails: string | undefined;
+  @Input() recommendedProduct : string | undefined;
 
 
 }

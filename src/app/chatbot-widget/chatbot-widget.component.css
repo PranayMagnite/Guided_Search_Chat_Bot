@@ -11,29 +11,48 @@ body {
 .chat-toggle {
   position: fixed;
   bottom: 25px;
-  right: 25px;
-  background-color: #4a4a4a;
+  left: 25px;
+  background: linear-gradient(135deg, #005fa8, #4da6ff);
   color: white;
   border: none;
-  border-radius: 50%;
-  width: 64px;  /* Increased size */
-  height: 64px; /* Increased size */
-  font-size: 28px; /* Increased font size */
+  border-radius: 50px;
+  padding: 10px 20px;
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  animation: pulse 2s infinite;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chat-toggle .chat-toggle-text {
+  font-size: 16px;
+  display: none; /* Hidden by default */
+  transition: opacity 0.3s ease;
 }
 
 .chat-toggle:hover {
   transform: scale(1.1);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.chat-toggle:hover .chat-toggle-text {
+  display: inline;
+}
+
+/* Tooltip Styling */
+.tooltip {
+  display: none; /* Tooltip not needed if text is inside button */
 }
 
 /* Chat Widget */
 .chat-widget {
   position: fixed;
   bottom: 100px;
-  right: 25px;
+  left: 25px;
   width: 450px;
   height: 600px;
   background-color: white;
@@ -166,6 +185,33 @@ body {
   background-color: #004080;
 }
 
+/* Tooltip Styling */
+.chat-toggle-container {
+  position: relative;
+}
+
+.tooltip {
+  position: absolute;
+  bottom: 80px;
+  right: 10px;
+  background: #005fa8;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s, transform 0.3s;
+  white-space: nowrap;
+}
+
+.chat-toggle:hover + .tooltip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
 /* Animations */
 @keyframes fadeIn {
   from {
@@ -182,12 +228,22 @@ body {
 @media (max-width: 480px) {
   .chat-widget {
     width: 95%;
-    right: 2.5%;
+    left: 2.5%;
     height: 80vh;
   }
 
   .chat-toggle {
     bottom: 15px;
-    right: 15px;
+    left: 15px;
+  }
+}
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
   }
 }

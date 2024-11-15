@@ -1,6 +1,11 @@
 <div *ngIf="isValid">
-  <!-- Floating Chat Button -->
-  <button class="chat-toggle" (click)="toggleChat()">💬</button>
+   <!-- Floating Chat Button -->
+   <div class="chat-toggle-container">
+    <button class="chat-toggle" (click)="toggleChat()">
+      💬 <span class="chat-toggle-text">Need Help?</span>
+    </button>
+  </div>
+  
 
   <!-- Chat Widget -->
   <div *ngIf="isChatOpen" class="chat-widget">

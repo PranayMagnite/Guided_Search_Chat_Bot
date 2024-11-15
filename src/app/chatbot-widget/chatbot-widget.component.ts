@@ -14,6 +14,8 @@ export class ChatbotWidgetComponent  implements AfterViewChecked,AfterViewInit {
   @Input() secretKey: string | undefined;
   @Input() clientId: string | undefined;
   @Input() productName: string | undefined;
+  @Input() productDetails: string | undefined;
+  @Input() recommendedProduct : string | undefined;
   @ViewChild('chatBody', { static: false }) chatBody!: ElementRef; // Reference to the chat body div 1
 
 
@@ -41,25 +43,24 @@ export class ChatbotWidgetComponent  implements AfterViewChecked,AfterViewInit {
   ngAfterViewInit(): void {
     
     console.log("yes"+ this.secretKey + this.clientId+this.productName);
- 
+  this.secretKey = "aloha";
+  this.clientId = "this";
     this.messages = [];
     this.wcMessage.push({ role :'assistant', content: `Hello! Welcome to Maui Jim sunglasses assistant. I'm here to help you find the perfect pair of sunglasses. Let's get started!`}); //WC message should be configurable
     this.chatService.getSecretKey(this.clientId).subscribe((res)=>{
       if( res.key == this.secretKey)
       {
        this.isValid = true;
-       this.chatService.getMetaPrompt(this.clientId,this.productName).subscribe((res)=>{
+       this.chatService.getMetaPrompt(this.clientId,this.productName, this.productDetails,this.recommendedProduct).subscribe((res)=>{
+        this.PDP_META_PROMPT=  res.metaData;
+        console.log(this.PDP_META_PROMPT);
+        this.messages.push({role:'system', content:this.PDP_META_PROMPT});   
        });
       }else{
           this.isValid = false;
       }
      }); 
-     this.chatService.getMetaPrompt(this.clientId, this.productName).subscribe((res)=>{
-    this.PDP_META_PROMPT=  res.metaData;
-    console.log(this.PDP_META_PROMPT);
-    this.messages.push({role:'system', content:this.PDP_META_PROMPT});   
-
-     });
+    
 
   }
 
