@@ -211,6 +211,36 @@ body {
   transform: translateY(0);
 }
 
+.chat-disclaimer {
+  text-align: center;
+  font-size: 14px;
+  color: #333;
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #fffae6; /* Light yellow background for emphasis */
+  border-top: 2px solid #ffc107; /* Yellow border for separation */
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.disclaimer-icon {
+  font-size: 16px;
+  color: #ffc107; /* Yellow to match the border */
+  margin-right: 5px;
+}
+
+.learn-more-link {
+  color: #007bff; /* Blue link */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.learn-more-link:hover {
+  text-decoration: underline;
+}
+
+
+
 
 /* Animations */
 @keyframes fadeIn {
