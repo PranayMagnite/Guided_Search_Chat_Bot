@@ -10,6 +10,7 @@ body {
 /* Floating Chat Button */
 .chat-toggle {
   position: fixed;
+  z-index: 1000;
   bottom: 25px;
   left: 25px;
   background: linear-gradient(135deg, #005fa8, #4da6ff);
@@ -54,7 +55,7 @@ body {
   bottom: 100px;
   left: 25px;
   width: 450px;
-  height: 600px;
+  height: 550px;
   background-color: white;
   border-radius: 20px;
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.2);
